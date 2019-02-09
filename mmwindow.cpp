@@ -50,6 +50,10 @@ MMWindow::~MMWindow()
 
 void MMWindow::insertColour(Colour c)
 {
+    if(_current_turn[0] == 12)
+    {
+        resetGame();
+    }
     if(_current_turn[1] < 4)
     {
         game->player_grid[_current_turn[1]] = c;
@@ -71,6 +75,10 @@ void MMWindow::resetGame()
     {
         j->setText("");
     }
+    for(auto k : _ai_choice_row)
+    {
+        k->setText("");
+    }
     _current_turn = {0,0};
     game->player_grid = {};
     game->setColours();
@@ -91,6 +99,13 @@ void MMWindow::on_pushEnter_clicked()
     }
 }
 
+void MMWindow::revealAIChoice()
+{
+    for(unsigned int k{0}; k<_ai_choice_row.size(); ++k)
+    {
+        _ai_choice_row[k]->setText(game->getStrFromColour(game->grid[k]));
+    }
+}
 void MMWindow::checkPlayerChoices()
 {
     std::vector<pegBool> _result = {};
@@ -114,6 +129,12 @@ void MMWindow::checkPlayerChoices()
     if(_pegs[1] == 4)
     {
         ui->msgDialogue->setText("You Won!");
+        revealAIChoice();
+    }
+    if(_current_turn[0] == 11)
+    {
+        ui->msgDialogue->setText("You Lose.");
+        revealAIChoice();
     }
 
 }

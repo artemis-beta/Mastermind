@@ -51,6 +51,7 @@ private:
     void resetGame();
     void insertColour(Colour);
     void checkPlayerChoices();
+    void revealAIChoice();
 };
 
 #endif // MMWINDOW_H
