@@ -5,7 +5,7 @@ Colour Mastermind::getRandomColour()
 {
     std::mt19937 rng;
     rng.seed(std::random_device()());
-    std::uniform_int_distribution<std::mt19937::result_type> seeder(0,7);
+    std::uniform_int_distribution<std::mt19937::result_type> seeder(0,6);
     Colour randomColour = Colour(seeder(rng));
     return randomColour;
 }
