@@ -1,0 +1,3 @@
+#Mastermind
+
+Mastermind (not to be confused with the BBC TV programme) is a game of deduction. The player must guess a combination of four colours consisting of either Blue, Orange, Red, Green, Black, White or Purple, and also having the possibility of a colour repeating once or more. The choices are made with pegs being placed within the main playing area on the left hand side of the board. For each turn taken feedback is given in the form of small black and white pegs placed on the right, a white peg means the player has a correct colour but the position is incorrect, whereas a black peg means both the position and colour of a chosen peg are correct. The player has 12 turns to deduce the pattern else the game is lost.
