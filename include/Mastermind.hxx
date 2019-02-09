@@ -8,6 +8,7 @@
 #include <array>
 #include <stdexcept>
 #include <random>
+#include <map>
 
 enum Colour {Blue, Green, Purple, Orange, Red, White, Black, None};
 enum pegBool {black, white, blank};
@@ -30,6 +31,7 @@ class Mastermind
             Colour getColourFromString(std::string);
 	    char getCharFromColour(Colour);
 	    char getBWCharFromPeg(pegBool);
+	    std::vector<int> getPegs(std::vector<Colour>);
             void _start();
 	    std::vector<Colour> player_grid;
 	    std::vector<std::vector<pegBool>> player_result;
