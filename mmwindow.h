@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include <map>
 #include "Mastermind.hxx"
 
 namespace Ui {
@@ -47,7 +48,9 @@ private:
     std::vector<QLabel*> _ai_choice_row;
     std::vector<std::vector<QLabel*>> _player_rows;
     std::vector<unsigned int> _current_turn;
-    std::vector<QLabel*> _result_rows;
+    std::vector<std::vector<QLabel*>> _result_rows;
+    std::map<QString, QPixmap> _peg_colour_files;
+    std::map<pegBool, QPixmap> _result_pegs;
     void resetGame();
     void insertColour(Colour);
     void checkPlayerChoices();

@@ -19,7 +19,7 @@ class Mastermind
             
             Colour getRandomColour();
             void setResult(int, pegBool);
-            QString _version_string = "v0.1.5";
+            QString _version_string = "v0.2.0";
            
     public:
             std::vector<Colour> player_grid = {None, None, None, None};

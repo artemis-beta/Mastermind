@@ -35,10 +35,44 @@ MMWindow::MMWindow(QWidget *parent) :
                    ui->label_11_3, ui->label_11_4},
                   {ui->label_12_1, ui->label_12_2,
                    ui->label_12_3, ui->label_12_4}};
-    _result_rows = {ui->res_1,ui->res_2,ui->res_3,
-                   ui->res_4,ui->res_5,ui->res_6,
-                   ui->res_7,ui->res_8,ui->res_9,
-                   ui->res_10,ui->res_11,ui->res_12};
+
+    _result_rows = {{ui->check_1_1, ui->check_1_2,
+                  ui->check_1_3, ui->check_1_4},
+                  {ui->check_2_1, ui->check_2_2,
+                   ui->check_2_3, ui->check_2_4},
+                  {ui->check_3_1, ui->check_3_2,
+                   ui->check_3_3, ui->check_3_4},
+                  {ui->check_4_1, ui->check_4_2,
+                   ui->check_4_3, ui->check_4_4},
+                  {ui->check_5_1, ui->check_5_2,
+                   ui->check_5_3, ui->check_5_4},
+                  {ui->check_6_1, ui->check_6_2,
+                   ui->check_6_3, ui->check_6_4},
+                  {ui->check_7_1, ui->check_7_2,
+                   ui->check_7_3, ui->check_7_4},
+                  {ui->check_8_1, ui->check_8_2,
+                   ui->check_8_3, ui->check_8_4},
+                  {ui->check_9_1, ui->check_9_2,
+                   ui->check_9_3, ui->check_9_4},
+                  {ui->check_10_1, ui->check_10_2,
+                   ui->check_10_3, ui->check_10_4},
+                  {ui->check_11_1, ui->check_11_2,
+                   ui->check_11_3, ui->check_11_4},
+                  {ui->check_12_1, ui->check_12_2,
+                   ui->check_12_3, ui->check_12_4}};
+
+    _result_pegs[black] = QPixmap(":/new/png/img/Black_colour_peg_small.png");
+    _result_pegs[blank] = QPixmap(":/new/png/img/No_colour_peg_small.png");
+    _result_pegs[white] = QPixmap(":/new/png/img/White_colour_peg_small.png");
+
+    _peg_colour_files["R"] = QPixmap(":/new/png/img/Red_colour_peg.png");
+    _peg_colour_files["B"] = QPixmap(":/new/png/img/Blue_colour_peg.png");
+    _peg_colour_files["K"] = QPixmap(":/new/png/img/Black_colour_peg.png");
+    _peg_colour_files["W"] = QPixmap(":/new/png/img/White_colour_peg.png");
+    _peg_colour_files["O"] = QPixmap(":/new/png/img/Orange_colour_peg.png");
+    _peg_colour_files["P"] = QPixmap(":/new/png/img/Purple_colour_peg.png");
+    _peg_colour_files["G"] = QPixmap(":/new/png/img/Green_colour_peg.png");
+    _peg_colour_files[""] = QPixmap(":/new/png/img/No_colour_peg.png");
     _current_turn = {0,0};
     game->setColours();
 }
@@ -57,7 +91,7 @@ void MMWindow::insertColour(Colour c)
     if(_current_turn[1] < 4)
     {
         game->player_grid[_current_turn[1]] = c;
-        _player_rows[_player_rows.size()-1-_current_turn[0]][_current_turn[1]]->setText(game->getStrFromColour(c));
+        _player_rows[_player_rows.size()-1-_current_turn[0]][_current_turn[1]]->setPixmap(_peg_colour_files[game->getStrFromColour(c)]);
         _current_turn[1]++;
     }
 }
@@ -68,16 +102,19 @@ void MMWindow::resetGame()
     {
         for(auto j : i)
         {
-            j->setText("");
+            j->setPixmap(_peg_colour_files[""]);
         }
     }
     for(auto j : _result_rows)
     {
-        j->setText("");
+        for(auto m : j)
+        {
+            m->setPixmap(_result_pegs[blank]);
+        }
     }
     for(auto k : _ai_choice_row)
     {
-        k->setText("");
+        k->setPixmap(_peg_colour_files[""]);
     }
     _current_turn = {0,0};
     game->player_grid = {};
@@ -103,7 +140,7 @@ void MMWindow::revealAIChoice()
 {
     for(unsigned int k{0}; k<_ai_choice_row.size(); ++k)
     {
-        _ai_choice_row[k]->setText(game->getStrFromColour(game->grid[k]));
+        _ai_choice_row[k]->setPixmap(_peg_colour_files[game->getStrFromColour(game->grid[k])]);
     }
 }
 void MMWindow::checkPlayerChoices()
@@ -116,15 +153,13 @@ void MMWindow::checkPlayerChoices()
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(_result), std::end(_result), rng);
 
-    QString _out_string = "";
+    while(_result.size() < 4)_result.push_back(blank);
 
-    for(auto r : _result)
+    for(unsigned int i{0}; i<_result.size(); ++i)
     {
-        if(r == black)_out_string += "b ";
-        else _out_string += "w ";
+        qDebug() << _result[i];
+        _result_rows[_player_rows.size()-1-_current_turn[0]][i]->setPixmap(_result_pegs[_result[i]]);
     }
-
-    _result_rows[_player_rows.size()-1-_current_turn[0]]->setText(_out_string);
 
     if(_pegs[1] == 4)
     {
@@ -179,7 +214,7 @@ void MMWindow::on_pushDel_clicked()
     if(_current_turn[1] > 0)
     {   _current_turn[1]--;
         game->player_grid[_current_turn[1]] = None;
-        _player_rows[_player_rows.size()-1-_current_turn[0]][_current_turn[1]]->setText("");
+        _player_rows[_player_rows.size()-1-_current_turn[0]][_current_turn[1]]->setPixmap(_peg_colour_files[""]);
     }
 
 }

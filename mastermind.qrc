@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/new/png">
+        <file>img/Red_colour_peg.png</file>
+        <file>img/White_colour_peg.png</file>
+        <file>img/Black_colour_peg.png</file>
+        <file>img/Purple_colour_peg.png</file>
+        <file>img/Blue_colour_peg.png</file>
+        <file>img/Green_colour_peg.png</file>
+        <file>img/Orange_colour_peg.png</file>
+        <file>img/No_colour_peg_small.png</file>
+        <file>img/No_colour_peg.png</file>
+        <file>img/Black_colour_peg_small.png</file>
+        <file>img/White_colour_peg_small.png</file>
+    </qresource>
+</RCC>
