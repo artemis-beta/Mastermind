@@ -1,7 +1,6 @@
 #include "mmwindow.h"
 #include "ui_mmwindow.h"
 #include <vector>
-#include <QDebug>
 
 MMWindow::MMWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -157,7 +156,6 @@ void MMWindow::checkPlayerChoices()
 
     for(unsigned int i{0}; i<_result.size(); ++i)
     {
-        qDebug() << _result[i];
         _result_rows[_player_rows.size()-1-_current_turn[0]][i]->setPixmap(_result_pegs[_result[i]]);
     }
 
